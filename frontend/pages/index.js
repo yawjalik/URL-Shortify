@@ -1,9 +1,7 @@
-import Head from 'next/head'
-import Image from 'next/image'
 import { useState } from 'react'
 import { toast } from 'react-toastify'
 import NavBar from '../components/navbar'
-import axios from 'axios'
+import apiService from '../services/api'
 
 export default function Home() {
   const [text, setText] = useState("")
@@ -13,19 +11,29 @@ export default function Home() {
   const onClick = (e) => {
     if (text.length > 0) {
       setLoading(true)
-      axios.post(`http://localhost:8000/shorten`, {url: text})
-        .then(res => {
-          // console.log(res.data.data.shortened_url)
-          setHash(res.data.data.shortened_url)
-          setText("")
-          setLoading(false)
-        })
-        .catch(err => {
-          // console.log(err)
-          setLoading(false)
+    //   axios.post(`http://localhost:8000/shorten`, {url: text})
+    //     .then(res => {
+    //       // console.log(res.data.data.shortened_url)
+    //       setHash(res.data.data.shortened_url)
+    //       setText("")
+    //       setLoading(false)
+    //     })
+    //     .catch(err => {
+    //       // console.log(err)
+    //       setLoading(false)
+    //       toast.error("Invalid URL or something else went wrong")
+    //       setHash("")
+    //     })
+      apiService.shortenUrl(text)
+      .then(res => {
+        setHash(res.data.shortened_url)
+        setLoading(false)
+      })
+      .catch(() => {
+        setLoading(false)
           toast.error("Invalid URL or something else went wrong")
           setHash("")
-        })
+      })
     }
   }
 
