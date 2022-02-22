@@ -25,17 +25,25 @@ export default function Home() {
   }
 
   return (
-    <div className='text-center'>
-      <h1 className='text-4xl font-bold my-2'>URL Shortify</h1>
-      <NavBar/>
-      <input className='bg-gray-200 rounded px-2 py-1 m-2' type="text" placeholder='Enter URL to shorten' value={text} onChange={e => setText(e.target.value)}/>
-      <button disabled={loading} className="bg-blue-200 hover:bg-blue-300 rounded px-2 py-1 m-2" onClick={onClick}>
-        {loading ? "Loading" : "Shorten"}
-      </button>
+    <div className='flex flex-col min-h-screen justify-evenly items-center text-center'>
+      <div>
+        <h1 className='text-4xl font-bold my-2'>URL Shortify</h1>
+        <NavBar/>
+      </div>
 
-      <h2 className='text-2xl my-4'>
-        <a className='text-blue-500' href={hash} target='_blank'>{hash}</a>
-      </h2>
+      <div>
+        <input className='bg-gray-200 rounded px-2 py-1 m-2' type="text" placeholder='Enter URL to shorten' value={text} onChange={e => setText(e.target.value)}/>
+        <button disabled={loading} className="bg-blue-200 hover:bg-blue-300 rounded px-2 py-1 m-2" onClick={onClick}>
+          {loading ? "Loading" : "Shorten"}
+        </button>
+      </div>
+      
+      <div className='bg-slate-100 p-2 m-2 rounded'>
+        <h2 className='text-2xl text-green-500 font-bold my-2'>{hash ? "Success!": ""}</h2>
+        <p className='text-xl my-2'>
+          <a className='text-blue-500' href={hash} target='_blank'>{hash}</a>
+        </p>
+      </div>
     </div>
   )
 }

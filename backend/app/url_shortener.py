@@ -227,7 +227,7 @@ class URLShortener:
         content = std_content()
         try:
             original_url = args['url'].strip()
-            row = self.retrieve('SELECT url.shortened_url, url.original_url, url_stats.datetime_created, url_stats.time_accessed FROM url INNER JOIN url_stats ON url.shortened_url = url_stats.shortened_url WHERE url.original_url = %s', original_url)
+            row = self.db.retrieve('SELECT url.shortened_url, url.original_url, url_stats.datetime_created, url_stats.time_accessed FROM url INNER JOIN url_stats ON url.shortened_url = url_stats.shortened_url WHERE url.original_url = %s', original_url)
             if row:
                 time_accessed = row[0]['time_accessed'].split('@')
                 num_click = 0
@@ -268,7 +268,7 @@ class URLShortener:
             rows = self.db.retrieve('SELECT url.shortened_url, url.original_url, url_stats.datetime_created FROM url INNER JOIN url_stats ON url.shortened_url = url_stats.shortened_url')
             if rows:
                 for row in rows:
-                    short_url = f'https://{self.hostname}/{row["shortened_url"]}'
+                    short_url = f'http://{self.hostname}/{row["shortened_url"]}'
                     content['data'].append({'url': row['original_url'], 'shortened_url': short_url, 'datetime_created': row['datetime_created'].strftime('%d/%m/%Y %H:%M:%S')})
                 status_code = 200
             else:
