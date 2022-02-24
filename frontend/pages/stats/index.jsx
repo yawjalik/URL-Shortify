@@ -11,9 +11,12 @@ const Stats = () => {
 
     useEffect(() => {
         const getStats = async () => {
-            const res = await apiService.getStats()
-            setStats(res.data)
-            // Handle network error
+            try {
+                const res = await apiService.getStats()
+                setStats(res.data)
+            } catch (err) {
+                toast.error("Network error")
+            }
         }
         getStats()
     }, [])
@@ -41,18 +44,17 @@ const Stats = () => {
         <table className='table-auto divide-y divide-gray-200 w-full'>
             <thead className="bg-gray-50">
                 <tr>
-                    <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="w-1/3 px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Date Created
                     </th>
-                    <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="w-1/3 px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Original URL
                     </th>
-                    <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="w-1/3 px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Shortened URL
                     </th>
                 </tr>
             </thead>
-
             <tbody className="bg-white divide-y divide-gray-200">
                 {stats.map((stat, index) => (
                     <tr key={index}>
