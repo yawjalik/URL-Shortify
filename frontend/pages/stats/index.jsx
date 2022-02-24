@@ -26,10 +26,13 @@ const Stats = () => {
             setLoading(true)
             apiService.getStatByOriginalUrl(urlInput)
             .then(res => {
-                setUrlStat(res.data)
+                setUrlStat(res.data.data)
             })
             .catch(() => toast.error("Invalid URL"))
-            .finally(() => setLoading(false))
+            .finally(() => {
+                setLoading(false)
+                setUrlInput("")
+            })
         }
     }
 
@@ -71,7 +74,39 @@ const Stats = () => {
                 ))}
             </tbody>
         </table>
-
+        
+        {Boolean(Object.keys(urlStat).length) && (
+            <div className="bg-gray-100 rounded-lg px-10 py-5 flex flex-col items-center relative mt-5">
+                <div className="flex flex-col items-center">
+                    <div className="flex space-x-5">
+                        <div className="flex flex-col">
+                            <div className="flex justify-between space-x-3">
+                                <span>Shortened URL</span>
+                                <span>:</span>
+                            </div>
+                            <div className="flex justify-between space-x-3">
+                                <span>Times clicked</span>
+                                <span>:</span>
+                            </div>
+                            <div className="flex justify-between space-x-3">
+                                <span>Datetime created</span>
+                                <span>:</span>
+                            </div>
+                            <div className="flex justify-between space-x-3">
+                                <span>Original URL</span>
+                                <span>:</span>
+                            </div>
+                        </div>
+                        <div className="flex flex-col">
+                            <span>{urlStat.shortened_url}</span>
+                            <span>{urlStat.number_of_clicks}</span>
+                            <span>{urlStat.datetime_created}</span>
+                            <span>{urlStat.url}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )}
     </div>
 }
 
