@@ -238,7 +238,7 @@ class URLShortener:
                 
                 content['data'] = {
                     'url': row[0]['original_url'],
-                    'shortened_url': f'https://{self.hostname}/{row[0]["shortened_url"]}',
+                    'shortened_url': f'http://{self.hostname}/{row[0]["shortened_url"]}',
                     'datetime_created': row[0]['datetime_created'].strftime('%d/%m/%Y %H:%M:%S'),
                     'number_of_clicks': num_click,
                     'datetime_accessed': time_accessed
