@@ -32,7 +32,7 @@ export default function Home() {
       </div>
 
       <div>
-        <input className='bg-gray-200 rounded px-2 py-1 m-2' type="text" placeholder='Enter URL to shorten' value={text} onChange={e => setText(e.target.value)}/>
+        <input className='bg-gray-200 rounded px-2 py-1' type="text" placeholder='Enter URL to shorten' value={text} onChange={e => setText(e.target.value)}/>
         <button disabled={loading} className="bg-blue-200 hover:bg-blue-300 rounded px-2 py-1 m-2" onClick={onClick}>
           {loading ? "Loading" : "Shorten"}
         </button>
