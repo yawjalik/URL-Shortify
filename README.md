@@ -1,3 +1,3 @@
 # URL-Shortify
 
-URL shortener in progress
+URL shortener made with NextJS and FastAPI
